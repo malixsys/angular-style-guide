@@ -22,10 +22,7 @@ See also AngularJS's wiki [here](https://github.com/angular/angular.js/wiki/Best
 * [Services](#services)
 * [Templates](#templates)
 * [Routing](#routing)
-* [i18n](#i18n)
 * [Performance](#performance)
-* [Contribution](#contribution)
-* [Contributors](#contributors)
 
 # General
 
