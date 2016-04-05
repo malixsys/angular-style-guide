@@ -6,7 +6,7 @@ The goal of this style guide is to present a set of best practices and style gui
 
 For AngularJS development recommended is the [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
 
-See also AngularJS's wiki [here](https://github.com/angular/angular.js/wiki/Best-Practices).
+See also AngularJS's wiki [here](https://github.com/angular/angular.js/wiki/Best-Practices).test
 
 
 # Table of content
@@ -66,9 +66,7 @@ Since a large AngularJS application has many components it's best to structure i
 │       │   └── jum.filter.js
 │       └── services
 │           └── dap.service.js
-├── partials
-├── lib
-└── test
+└── lib
 ```
   * Put all the files associated with the given directive (i.e. templates, CSS/SASS files, JavaScript) in a single folder. If you choose to use this style be consistent and use it everywhere along your project.
 
