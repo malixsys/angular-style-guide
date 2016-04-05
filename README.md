@@ -201,8 +201,8 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 # Controllers
 
 * Do not manipulate DOM in your controllers, this will make your controllers harder for testing and will violate the [Separation of Concerns principle](https://en.wikipedia.org/wiki/Separation_of_concerns). Use directives instead.
-* The naming of the controller is done using the controller's functionality (for example shopping cart, homepage, admin panel) and the substring `Ctrl` in the end.
-* Controllers are plain javascript [constructors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor), so they will be named UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.).
+* The naming of the controller is done using the controller's functionality (for example shopping cart, homepage, admin panel) and the substring `Controller` in the end.
+* Controllers are plain javascript [constructors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor), so they will be named UpperCamelCase (`HomePageController`, `ShoppingCartController`, `AdminPanelController`, etc.).
 * The controllers should not be defined as globals (even though AngularJS allows this, it is a bad practice to pollute the global namespace).
 * Use the following syntax for defining controllers:
 
@@ -224,16 +224,16 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 * Prefer using `controller as` syntax and capture `this` using a variable:
 
   ```html
-  <div ng-controller="MainCtrl as main">
+  <div ng-controller="MainController as main">
      {{ main.things }}
   </div>
   ```
 
     ```JavaScript
-  app.controller('MainCtrl', MainCtrl);
-  MainCtrl.$inject = ['$http'];
+  app.controller('MainController', MainController);
+  MainController.$inject = ['$http'];
 
-  function MainCtrl ($http) {
+  function MainController ($http) {
     var vm = this;
     //a clearer visual connection on how is defined on the view
     vm.title = 'Some title';
@@ -248,11 +248,11 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 Avoid using `this` keyword repeatedly inside a controller:
 
   ```JavaScript
-    app.controller('MainCtrl', MainCtrl);
-    MainCtrl.$inject = ['$http'];
+    app.controller('MainController', MainController);
+    MainController.$inject = ['$http'];
 
     // Avoid
-    function MainCtrl ($http) {
+    function MainController ($http) {
       this.title = 'Some title';
       this.description = 'Some description';
 
@@ -264,7 +264,7 @@ Avoid using `this` keyword repeatedly inside a controller:
     }
     ```
 
-Using a consistent and short variable name is preferred, for example `ctrl`.
+Using a consistent and short variable name is preferred, for example `$ctrl`.
 
                                                                The main benefits of using this syntax:
   * Creates an 'isolated' component - binded properties are not part of `$scope` prototype chain. This is good practice since `$scope` prototype inheritance has some major drawbacks (this is probably the reason it was removed on Angular 2):
@@ -279,21 +279,21 @@ Digging more into `controller as`: [digging-into-angulars-controller-as-syntax](
 * If using array definition syntax, use the original names of the controller's dependencies. This will help you produce more readable code:
 
   ```JavaScript
-  function MyCtrl(l, h) {
+  function MyController(l, h) {
     // ...
   }
 
-  module.controller('MyCtrl', ['$log', '$http', MyCtrl]);
+  module.controller('MyController', ['$log', '$http', Controller]);
   ```
 
 which is less readable than:
 
   ```JavaScript
-  function MyCtrl($log, $http) {
+  function MyController($log, $http) {
     // ...
   }
 
-  module.controller('MyCtrl', ['$log', '$http', MyCtrl]);
+  module.controller('MyController', ['$log', '$http', MyController]);
   ```
 
 This especially applies to a file that has so much code that you'd need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.
@@ -305,7 +305,7 @@ This especially applies to a file that has so much code that you'd need to scrol
   ```Javascript
   //This is a common behaviour (bad example) of using business logic inside a controller.
   angular.module('Store', [])
-  .controller('OrderCtrl', function () {
+  .controller('OrderController', function () {
     var vm = this;
 
     vm.items = [];
@@ -331,7 +331,7 @@ When delegating business logic into a 'model' service, controller will look like
 ```Javascript
   //Order is used as a 'model'
   angular.module('Store', [])
-  .controller('OrderCtrl', function (Order) {
+  .controller('OrderController', function (Order) {
     var vm = this;
 
     vm.items = Order.items;
@@ -383,11 +383,11 @@ Why business logic / app state inside controllers is bad?
    }
    module.filter('myFormat', myFormat);
 
-   function MyCtrl($scope, myFormatFilter) {
+   function MyController($scope, myFormatFilter) {
      // ...
    }
 
-   module.controller('MyCtrl', MyCtrl);
+   module.controller('MyController', MyController);
    ```
 * In case of nested controllers use "nested scoping" (the `controllerAs` syntax):
 
@@ -397,14 +397,14 @@ Why business logic / app state inside controllers is bad?
      $routeProvider
        .when('/route', {
          templateUrl: 'partials/template.html',
-         controller: 'HomeCtrl',
+         controller: 'HomeController',
          controllerAs: 'home'
        });
    });
    ```
-**HomeCtrl**
+**HomeController**
 ```javascript
-   function HomeCtrl() {
+   function HomeController() {
      var vm = this;
 
      vm.bindingValue = 42;
@@ -441,12 +441,12 @@ This section includes information about the service component in AngularJS. It i
 * UpperCamelCase (PascalCase) for naming your services, used as constructor functions i.e.:
 
 ```JavaScript
-    function MainCtrl(User) {
+    function MainController(User) {
         var vm = this;
         vm.user = new User('foo', 42);
     }
 
-    module.controller('MainCtrl', MainCtrl);
+    module.controller('MainController', MainController);
 
     function User(name, age) {
       this.name = name;
@@ -551,7 +551,7 @@ See 'Avoid writing business logic inside controllers' for an example of a contro
 * Instead of using scope variable as string and using it with `style` attribute with `{{ }}`, use the directive `ng-style` with object-like parameters and scope variables as values:
 
 ```html
-    <div ng-controller="MainCtrl as main">
+    <div ng-controller="MainController as main">
         <div ng-style="main.divStyle">my beautifully styled div which will work in IE</div>;
     </div>
 ```
@@ -559,11 +559,11 @@ See 'Avoid writing business logic inside controllers' for an example of a contro
   ```JavaScript
   angular
     .module('app')
-    .controller('MainCtrl', MainCtrl);
+    .controller('MainController', MainController);
 
-  MainCtrl.$inject = [];
+  MainController.$inject = [];
 
-  function MainCtrl() {
+  function MainController() {
     var vm = this;
     vm.divStyle = {
         width: 200,
